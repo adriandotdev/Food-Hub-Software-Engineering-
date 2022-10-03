@@ -13,7 +13,7 @@ function Homepage() {
      * it to the page. */
     useEffect(() => {
 
-        document.title = 'PNC Cafe | Home'
+        document.title = 'Food Hub | Home'
         console.log('rendered') // for testing
         const controller = new AbortController();
         const signal = controller.signal;
@@ -48,7 +48,7 @@ function Homepage() {
     return (
         <>
         { isUser && <div>   
-                <div className="grid grid-auto-rows w-full place-content-center p-5 md:p-10 md:pl-12">
+                <div className="grid grid-auto-rows w-full place-content-start p-5 md:p-10 md:pl-12">
 
                 <h1 className="text-center text-3xl py-5 md:pl-12 md:pt-2 self-start md:text-left md:py-0 lg:text-4xl text-pnc font-bold">Today's Menu</h1>
 

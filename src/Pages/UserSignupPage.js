@@ -10,86 +10,92 @@ function UserSignupPage() {
     let navigate = useNavigate()
 
     // States of this page.
-    const [IDNumber, setIDNumber] = useState('');
-    const [email, setEmail] = useState('');
+    // const [IDNumber, setIDNumber] = useState('');
+    const [givenName, setGivenName] = useState('');
+    const [middleName, setMiddleName] = useState('');
+    const [lastName, setLastName] = useState('');
+    const [userName, setUserName] = useState('');
     const [mobileNumber, setMobileNumber] = useState('')
+    const [birthday, setBirthday] = useState('')
     const [password, setPassword] = useState('');
     const [confirmationPassword, setConfirmationPassword] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
     
-    /** Add the user to the database */
-    // async function addUser() {
-
-    //     const res = await fetch('http://localhost:3001/add-user', {
-
-    //         method: 'POST', 
-    //         headers: {
-    //             'Content-Type': 'application/json'
-    //         },
-    //         body: JSON.stringify({IDNumber, password, email, mobileNumber})
-    //     })
-
-    //     const data = await res.json()
-
-    //     if (JSON.parse(data).status === 200) {
-
-    //         alert('Successfully registered!')
-    //         navigate('/', {replace: true}) // navigate to the given url and replace the current active window.
-    //     }  
-    // }
-
-    /** Checks if the user is already registered */
-    // async function isAlreadyRegistered() {
-
-    //     const res = await fetch('http://localhost:3001/get-user', {
-    //                             method: 'POST', 
-    //                             headers: {
-    //                                 'Content-Type': 'application/json'
-    //                             },
-    //                             body: JSON.stringify({IDNumber})
-    //                         })
-    //     const data = await res.json()
-
-    //     if (JSON.parse(data).length > 0) {
-
-    //         setErrorMessage('ID Number Already Registered')
-    //     } 
-    //     else if (mobileNumber.length > 11 || mobileNumber.length < 11) {
-    //         setErrorMessage('Mobile Number is invalid. Please provide an 11-digit number starting with 09.')
-    //     }
-    //     else {
-
-    //         if (password !== confirmationPassword)
-    //             setErrorMessage('Password doesn\'t match');
-    //         else
-    //             addUser()
-    //     }
-    // }
-
-    /** Verify if the ID Number is existing at the school database. (ONLY STAFFS, STUDENTS, TEACHERS OF PNC CAN USE THIS APP) */
-    // async function verify_user () {
-
-    //     const res = await fetch('http://localhost:3001/verify-user', {
-    //                             method: 'POST', 
-    //                             headers: {
-    //                                 'Content-Type': 'application/json'
-    //                             },
-    //                             body: JSON.stringify({IDNumber})
-    //                         })
-    //     const data = await res.json()
-
-    //     if (JSON.parse(data).length > 0) {
-
-    //         isAlreadyRegistered()
-    //     } else {
-    //         setErrorMessage('ID Number is invalid.')
-    //     }
-    // }
-
     useEffect(() => {
 
         document.title = "Food Hub | Sign Up"
     }, [])
+
+    /** Add the user to the database */
+    async function addUser() {
+
+        const res = await fetch('http://localhost:3001/add-user', {
+
+            method: 'POST', 
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({givenName, middleName, lastName, userName, mobileNumber, password, birthday})
+        })
+
+        const data = await res.json()
+
+        if (JSON.parse(data).status === 200) {
+
+            alert('Successfully registered!')
+            navigate('/', {replace: true}) // navigate to the given url and replace the current active window.
+        }  
+    }
+
+    /** Checks if the user is already registered */
+    async function isAlreadyRegistered() {
+
+        const res = await fetch('http://localhost:3001/get-user', {
+                                method: 'POST', 
+                                headers: {
+                                    'Content-Type': 'application/json'
+                                },
+                                body: JSON.stringify({userName})
+                            })
+        const data = await res.json()
+
+        if (JSON.parse(data).length > 0) {
+
+            setErrorMessage('ID Number Already Registered')
+        } 
+        else if (mobileNumber.length > 11 || mobileNumber.length < 11) {
+            setErrorMessage('Mobile Number is invalid. Please provide an 11-digit number starting with 09.')
+        }
+        else {
+
+            if (password !== confirmationPassword)
+                setErrorMessage('Password doesn\'t match');
+            else
+                addUser()
+        }
+    }
+
+    /** Verify if the ID Number is existing at the school database. (ONLY STAFFS, STUDENTS, TEACHERS OF PNC CAN USE THIS APP) */
+    async function verify_user () {
+
+        // ROOT: http://localhost:3001/
+        const res = await fetch('http://localhost:3001/verify-user', {
+                method: 'POST', 
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({userName})
+            })
+        const data = await res.json();
+        
+        if (JSON.parse(data).length > 0) {
+            console.log(data);
+            alert("Username is existing");
+        } else {
+            addUser();
+        }
+    }
+
     return (
         <div className="hero flex-col items-start mt-12 lg:mt-0 lg:items-center ">
             
@@ -102,20 +108,40 @@ function UserSignupPage() {
                     <form autoComplete="off"  className="form-control" onSubmit={(e) => {
 
                             e.preventDefault()
-                            // verify_user()
+                            verify_user()
                         }}>
-
-                        {/* <InputContainer name="id-number" type="text" labelContent="ID Number" value={IDNumber} 
-                        onChange={
+                        
+                         <InputContainer name="givenName" type="text" labelContent="Given Name" value={givenName} onChange={
                             (e) => { 
-                                setIDNumber(e.target.value)
+                                setGivenName(e.target.value)
                                 setErrorMessage('') 
                             }
-                        }/> */}
+                        }/>
 
-                        <InputContainer name="email" type="email" labelContent="Email" value={email} onChange={
+                        <InputContainer name="middleName" type="text" labelContent="Middle Name" value={middleName} onChange={
                             (e) => { 
-                                setEmail(e.target.value)
+                                setMiddleName(e.target.value)
+                                setErrorMessage('') 
+                            }
+                        }/>
+
+                        <InputContainer name="lastName" type="text" labelContent="Last Name" value={lastName} onChange={
+                            (e) => { 
+                                setLastName(e.target.value)
+                                setErrorMessage('') 
+                            }
+                        }/>
+
+                        <InputContainer name="birthday" type="date" labelContent="birthday" value={birthday} onChange={
+                            (e) => { 
+                                setBirthday(e.target.value)
+                                setErrorMessage('') 
+                            }
+                        }/>
+
+                        <InputContainer name="username" type="text" labelContent="Username" value={userName} onChange={
+                            (e) => { 
+                                setUserName(e.target.value)
                                 setErrorMessage('') 
                             }
                         }/>

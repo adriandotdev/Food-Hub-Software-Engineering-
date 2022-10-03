@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, {useState, useEffect, useContext} from 'react'
 import {Link} from 'react-router-dom'
 import {UserContext} from '../contexts/UserContext'
@@ -116,6 +117,7 @@ function MenuInfoPage() {
         .then(res => res.json())
         .then(data => {
 
+            console.log("FROM MenuInfoPage: " + data);
             /** The return value is an array, so 
              * if it is empty, it means the current
              * menu is not on the cart, then we add it. */

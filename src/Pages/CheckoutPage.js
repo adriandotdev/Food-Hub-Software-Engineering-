@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, {useState, useEffect, useContext} from 'react'
 import { Link } from 'react-router-dom'
 import {UserContext} from '../contexts/UserContext'
@@ -52,6 +53,7 @@ function CheckoutPage() {
     /** This will run for every refresh and rendered */
     useEffect(() => {
 
+        document.title = "Food Hub | Checkout"
         /** To avoid, data lost when refreshed,
          * we need to check if the sessionStorage has a 
          * checkout key. */
@@ -65,7 +67,7 @@ function CheckoutPage() {
 
     useEffect(() => {
         
-        document.title = 'PNC Cafe | Checkout' // set the document title.
+        document.title = "Food Hub | Checkout" // set the document title.
 
         // get the idNumber key at session storage
         let id_number = sessionStorage.getItem('idNumber')
@@ -81,7 +83,7 @@ function CheckoutPage() {
         fetch('http://localhost:3001/user-id', {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({userIDNumber: id_number})
+            body: JSON.stringify({id_number})
         })
         .then(response => response.json())
         .then(data =>  {

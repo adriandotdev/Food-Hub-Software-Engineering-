@@ -20,7 +20,7 @@ function CartPage() {
 
     useEffect(() => {
         
-        document.title = 'PNC Cafe | My Cart' // set document title.
+        document.title = 'Food Hub | My Cart' // set document title.
         setAddedToCart(false) // set the global variable when a user added to a cart.
         setQuantity(1) // reset the global state 'quantity' to 1.
 
@@ -61,7 +61,6 @@ function CartPage() {
     
     useEffect(() => {
 
-        console.log('cart page event')
         if (document.URL === 'http://localhost:3000/cart') {
             document.addEventListener('click', addEventToDocument)
         }

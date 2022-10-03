@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, {useState, useEffect, useContext} from 'react'
 import {Link} from 'react-router-dom'
 import {UserContext} from '../contexts/UserContext'
@@ -14,10 +15,13 @@ function ProfileIcon() {
             fetch('http://localhost:3001/user-id', {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({userIDNumber})
+                body: JSON.stringify({id_number: userIDNumber})
             })
             .then(res => res.json())
-            .then(data => setImage(JSON.parse(data)[0].profile_image_path))
+            .then(data => {
+                console.log("FROM PROFILE ICON: " + JSON.parse(data))
+                setImage(JSON.parse(data)[0].profile_image_path)
+            })
         }
 
     }, [isUser, isEditingDone])

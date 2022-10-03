@@ -3,7 +3,8 @@ import {Outlet} from 'react-router-dom'
 import Dropdown from '../component-icons/Dropdown'
 import {UserProvider} from '../contexts/UserContext'
 import {CheckoutProvider} from '../contexts/CheckoutContext'
-
+import ProfileIcon from '../component-icons/ProfileIcon'
+import ShoppingCart from '../component-icons/ShoppingCart'
 
 function Navbar({navClass}) {
 
@@ -18,6 +19,8 @@ function Navbar({navClass}) {
                             <h1 className="text-white font-bold text-2xl sm:block md:text-3xl">Food Hub</h1>
                             
                             <section className="flex gap-5">
+                                <ShoppingCart />
+                                <ProfileIcon />
                                 <Dropdown />
                             </section>
                         </nav>

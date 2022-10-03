@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, {useState, useEffect, useContext} from 'react'
 import {useNavigate} from 'react-router-dom'
 import Button from '../components/Button'
@@ -22,7 +23,7 @@ function ProfilePage() {
     const {userIDNumber, setUserIDNumber, isUser, setUser, setQuantity, isEditingDone, setEditingDone} = useContext(UserContext)
 
     const [emailDisabled, setEmailDisabled] = useState(true)
-    const [email, setEmail] = useState('')
+    const [username, setUserName] = useState('')
 
     const [contactDisabled, setContactDisabled] = useState(true)
     const [contactNumber, setContactNumber] = useState('')
@@ -45,13 +46,13 @@ function ProfilePage() {
 
     useEffect(() => {
 
-        document.title = 'PNC Cafe | Profile'
-        let id_number = sessionStorage.getItem('idNumber')
+        document.title = 'Food Hub | Profile';
+        let id_number = sessionStorage.getItem('idNumber');
 
         // Every time the user refresh the page or go to this page, we set the userIDNumber from the session storage and setUser to true.
         if (id_number) {
             setUserIDNumber(id_number);
-            setUser(true)
+            setUser(true);
         }
         setQuantity(1); // when this page reloads or refreshed, we set the global state quantity to 1.
         
@@ -59,12 +60,13 @@ function ProfilePage() {
         // fetch the profile info of the specified user based on ID Number.
         // we fetch it from the route user-id
         // we use post method because we want to put a value in our request.
+
         fetch('http://localhost:3001/user-id', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({userIDNumber: id_number})
+            body: JSON.stringify({id_number})
         })
         .then(res => res.json())
         .then(data => {
@@ -75,7 +77,7 @@ function ProfilePage() {
             // Set all the values.
 
             if (emailDisabled)
-                setEmail(JSON.parse(data)[0]['email'])
+                setUserName(JSON.parse(data)[0]['username'])
             
             if (contactDisabled)
                 setContactNumber(JSON.parse(data)[0]['mobile_number'])
@@ -128,7 +130,7 @@ function ProfilePage() {
              * as 'newPassword' because it is the same as 
              * what the user old password is.
              */
-            body: newPassword ? JSON.stringify({email, contactNumber, newPassword, image, userIDNumber}) : JSON.stringify({email, contactNumber, newPassword: password, image, userIDNumber})
+            body: newPassword ? JSON.stringify({username, contactNumber, newPassword, image, userIDNumber}) : JSON.stringify({username, contactNumber, newPassword: password, image, userIDNumber})
         })
         .then(res => res.json())
         .then(data => {
@@ -189,10 +191,10 @@ function ProfilePage() {
                             }} 
                             onChange={(e) => {
                                 
-                                setEmail(e.target.value)
+                                setUserName(e.target.value)
                                 setErrorMessage('')
                             }}
-                            value={email} 
+                            value={username} 
                             htmlFor="email" type="text"/>
                     </section>
 
@@ -205,7 +207,7 @@ function ProfilePage() {
                                 setContactDisabled(true)
                                 setErrorMessage('')
                                 setCancelEditing(!cancelEditing)
-                                setEmail(prevEmail => prevEmail)
+                                setUserName(prevEmail => prevEmail)
                             }} 
                             onChange={(e) => {
                                 

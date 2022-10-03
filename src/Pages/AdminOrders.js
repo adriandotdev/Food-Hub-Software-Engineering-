@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, {useState, useEffect, useContext} from 'react'
 import { UserProvider } from '../contexts/UserContext'
 import {AdminOrderContext} from '../contexts/AdminOrderContext'
@@ -49,11 +50,11 @@ function AdminOrders() {
      * get all the orders of the app. */
     useEffect(() => {
 
-        document.title = 'PNC Cafe | Orders'
+        document.title = 'Food Hub | Orders'
         if (orders.length < 1) 
            getOrdersWithStatus(dropdownValue)
             
-    }, [orders])
+    }, [])
 
     return (
         <div className="row-start-2 row-end-5 grid grid-cols-12 w-screen gap-3 px-10 relative">

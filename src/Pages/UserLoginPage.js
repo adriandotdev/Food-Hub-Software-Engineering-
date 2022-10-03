@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, {useState, useEffect, useContext} from 'react'
 import {UserContext} from '../contexts/UserContext'
 import {Link, useNavigate} from 'react-router-dom'
@@ -10,53 +11,61 @@ function UserLoginPage() {
 
     let navigate = useNavigate();
     const {setUserIDNumber, setUser} = useContext(UserContext)
-    const [username, setUserName] = useState('');
+    const [userName, setUserName] = useState('');
     const [password, setPassword] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
     const [receivedData, setReceivedData] = useState([]);
+    const [IsOkay, setIsOkay] = useState(false);
 
-    // function authenticate() {
+     function authenticate() {
 
-    //     fetch('http://localhost:3001/get-user', {
-    //         method: 'POST',
-    //         headers: {
-    //             'Content-Type': 'application/json'
-    //         },
-    //         body: JSON.stringify({IDNumber})
-    //     })
-    //     .then(res => res.json())
-    //     .then(data => {
+        fetch('http://localhost:3001/get-user', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({userName})
+        })
+        .then(res => res.json())
+        .then(data => {
 
-    //         // if data is not empty
-    //         if (JSON.parse(data))
-    //             setReceivedData(JSON.parse(data)) // triggers re-render          
-    //     })
-    // }
+            console.log(JSON.parse(data))
+            // if data is not empty
+            if (JSON.parse(data)) {
+                setReceivedData(JSON.parse(data));
+                
+                setIsOkay(true);
+             } // triggers re-render          
+            
+        })
+    }
 
     /**
      * NOTE: ONLY RUNS WHEN THE 'receivedData' value changes.
      */
-    // useEffect(() => {
+    useEffect(() => {
 
-    //     document.title = 'Food Hub | Login'
-    //     // Check if the input field of ID Number and Password are not empty.
-    //     if (IDNumber && password) {
-
-    //         /** Check if the ID Number and Password entered by user is equal to the received data's id number and password. */
-    //         if (receivedData.length > 0 && (password === receivedData[0]['password'] && IDNumber === receivedData[0]['id_number'])){
-
-    //             setUser(true)
-    //             setErrorMessage('')
-    //             setUserIDNumber(IDNumber)
-    //             window.sessionStorage.setItem('isUser', 'true'); // set the session storage to determine if the user hasn't logged out yet.
-    //             window.sessionStorage.setItem('idNumber', `${IDNumber}`) // set the session storage to determine the id number of the user.
-    //             navigate("/homepage")
-    //         } else {
-    //             setErrorMessage('Incorrect password')
-    //         }
-    //     }
+        console.log("useEffect run in UserLoginPage");
         
-    // }, [receivedData])
+        document.title = 'Food Hub | Login'
+        // Check if the input field of ID Number and Password are not empty.
+        if (userName && password) {
+
+            /** Check if the username and Password entered by user is equal to the received data's id number and password. */
+            if (receivedData.length > 0 && (password === receivedData[0]['password'] && userName === receivedData[0]['username'])){
+
+                setUser(true)
+                setErrorMessage('')
+                setUserIDNumber(receivedData[0]['id_number'])
+                window.sessionStorage.setItem('isUser', 'true'); // set the session storage to determine if the user hasn't logged out yet.
+                window.sessionStorage.setItem('idNumber', `${receivedData[0]['id_number']}`) // set the session storage to determine the id number of the user.
+                navigate("/homepage")
+            } else {
+                setErrorMessage('Incorrect password')
+            }
+        }
+        
+    }, [receivedData])
 
     return (
         <div className="hero mt-12 flex flex-col lg:mt-0 lg:justify-between lg:items-center lg:flex-row lg:p-28">
@@ -64,7 +73,7 @@ function UserLoginPage() {
             {/* Title Section */}
              <div className="hero-content  flex-col lg:items-start gap-3 flex-shrink-0 z-auto">
                     <h1 className="text-4xl font-[Poppins] text-pnc font-bold lg:text-7xl xl:text-9xl text-center">Food Hub</h1>
-                    <p className="font-medium  text-pnc text-center md:text-xl">Your one and only hub</p>
+                    <p className="font-medium text-center md:text-xl lg:text-4xl font-serif text-foodHubColor1">Your one and only hub</p>
              </div>
 
             {/* Login Form */}
@@ -77,12 +86,12 @@ function UserLoginPage() {
                         e.preventDefault()
                     
                        // If both are not empty, authenticate
-                    //    if (IDNumber && password)
-                    //         authenticate()
+                       if (userName && password)
+                            authenticate();
                     }}>
                     
                         {/* INPUT FIELDS */}
-                        <InputContainer name="id-number" type="text" labelContent="Username" value={username} onChange={(e) => {
+                        <InputContainer name="id-number" type="text" labelContent="Username" value={userName} onChange={(e) => {
                             setUserName(e.target.value)
                             setErrorMessage('')
                         }}/>
@@ -97,7 +106,7 @@ function UserLoginPage() {
                             <Button onClick={() => {
 
                                 // Check if the required fields (ID Number and Password) are not empty.
-                                if (!username || !password)
+                                if (!userName || !password)
                                     setErrorMessage('Please provide the required fields.')
                             }} 
                             className="foodHubMainBtn" 

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, {useState, useEffect, useContext} from 'react'
 import {UserProvider} from '../contexts/UserContext'
 import {UserContext} from '../contexts/UserContext'
@@ -76,7 +77,7 @@ function YourOrders() {
     /** When the isUser changes... */
     useEffect(() => {
 
-        document.title = 'PNC Cafe | Your Orders'
+        document.title = 'Food Hub | Your Orders'
         getOrdersWithStatus('all')
     }, [])
 

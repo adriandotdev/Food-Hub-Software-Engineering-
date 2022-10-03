@@ -13,7 +13,7 @@ function AdminLogin({setAdmin}) {
 
     useEffect(() => {
 
-        document.title = 'PNC Cafe | Admin'
+        document.title = 'Food Hub | Admin'
     }, [])
 
     // A function that verifies the admin.
