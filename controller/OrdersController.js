@@ -34,12 +34,18 @@ const getOrdersWithStatus = (req, res) => {
 
     let query = ''
 
-    if (req.body['status'] === 'all') {
+    if (req.body['status'] === 'all' && !req.body['userIDNumber']) {
         query = `SELECT * FROM Orders`
     }
+    else if (req.body['status'] === 'all' && req.body['userIDNumber']) {
+        console.log("GET ORDERS WITH STATUS AND ID NUMBER 1");
+        query = `SELECT * FROM Orders WHERE id_number = '${req.body['userIDNumber']}'`;
+    }
     // If the property of userIDNumber property is not empty, we set the query with a userIDNumber.
-    else if (req.body['userIDNumber'])
+    else if (req.body['userIDNumber']) {
+        console.log("GET ORDERS WITH STATUS AND ID NUMBER 2");
         query = `SELECT * FROM Orders WHERE id_number = '${req.body['userIDNumber']}' AND status = '${req.body['status']}'`;
+    }
     // Otherwise, it would run this.
     else
         query = `SELECT * FROM Orders WHERE status = '${req.body['status']}'`;
