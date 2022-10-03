@@ -57,6 +57,7 @@ function App() {
           <Route path="/admin" element={<AdminNavbar isAdmin={isAdmin} setAdmin={setAdmin} navClass="admin-layout"/>}>
 
             {!isAdmin && <Route path="/admin" element={<AdminLogin setAdmin={setAdmin}/>} />}
+            
             {
               isAdmin && <Route path="/admin" element={<AdminPage />}>
                           <Route path="/admin/users" element={<CustomersPage />} />

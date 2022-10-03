@@ -13,7 +13,7 @@ function MenuPage() {
      * new data to fetch updated menus in the database */
     useEffect(() => {
 
-        document.title = 'PNC Cafe | Menu'
+        document.title = 'Food Hub | Menu'
         
         fetch('http://localhost:3001/get-menu', {
             method: 'POST',

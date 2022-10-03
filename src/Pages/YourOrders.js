@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, {useState, useEffect, useContext} from 'react'
 import {UserProvider} from '../contexts/UserContext'

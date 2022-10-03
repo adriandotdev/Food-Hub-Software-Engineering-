@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, {useState, useEffect} from 'react'
 import CheckedOutItem from '../components/CheckedOutItem'
 
@@ -18,10 +19,14 @@ function Invoice({orderDetails, referenceFor="invoice"}) {
         fetch('http://localhost:3001/user-id', {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({userIDNumber: orderDetails.id_number})
+            body: JSON.stringify({id_number: orderDetails.id_number})
         })
         .then(res => res.json())
-        .then(data => setUserInfo(JSON.parse(data)))
+        .then(data => {
+            
+            setUserInfo(JSON.parse(data))
+            console.log(data);
+        })
         
     }
 
@@ -51,7 +56,10 @@ function Invoice({orderDetails, referenceFor="invoice"}) {
 
                 <div className="modal-box flex flex-col items-stretch gap-3 max-h-96 overflow-auto md:max-h-full">
                     <h1 className="text-pnc text-2xl lg:text-3xl">Invoice</h1>
-
+                    
+                    <div className="flex flex-col items-stretch gap-3 border-pnc border-b pb-3">
+                        <h2>{userInfo['givenName']}</h2>
+                    </div>
                     {/* Order Details */}
                     <div className="flex flex-col items-stretch gap-3 border-pnc border-b pb-3">
                         <p className="text-pnc font-medium text-xl">Order Details</p>

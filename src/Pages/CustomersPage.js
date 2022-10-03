@@ -4,17 +4,17 @@ import React, {useState, useEffect} from 'react'
  * This is the Admin Page for Customers */
 function CustomersPage() {
 
-    const [pncUsers, setPncUsers] = useState([]) // state that holds the list of users in this app.
+    const [foodHubUsers, setFoodHubUsers] = useState([]) // state that holds the list of users in this app.
 
     // runs for the first render of this page.
     useEffect(() => {
 
-        document.title = 'PNC Cafe | Users'
+        document.title = 'Food Hub | Users'
         
         fetch('http://localhost:3001/users')
         .then(response => response.json())
         .then(data => {
-            setPncUsers(JSON.parse(data))
+            setFoodHubUsers(JSON.parse(data))
         })
     }, [])
 
@@ -34,7 +34,7 @@ function CustomersPage() {
                             <th className="table-headers">Given Name</th>
                             <th className="table-headers">Middle Name</th>
                             <th className="table-headers">Last Name</th>
-                            <th className="table-headers">Email</th>
+                            <th className="table-headers">Username</th>
                             <th className="table-headers">Sex</th>
                             <th className="table-headers">Contact Number</th>
                     </thead>
@@ -42,13 +42,13 @@ function CustomersPage() {
                     {/* Actual Data */}
                     <tbody className="overflow-y-auto">
                         {
-                            pncUsers.map(user => {
+                            foodHubUsers.map(user => {
 
                                 const idNumber = user['id_number']
                                 const givenName = user['given_name']
                                 const middleName = user['middle_name']
                                 const lastName = user['last_name']
-                                const email = user['email']
+                                const email = user['username']
                                 const sex = user['sex']
                                 const mobileNumber = user['mobile_number']
 
