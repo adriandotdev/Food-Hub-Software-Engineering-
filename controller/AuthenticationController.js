@@ -57,8 +57,7 @@ const addUser = (req, res) => {
 
     let ageOfUser = Math.abs(dateNow.getUTCFullYear() - birthdayOfUser.getUTCFullYear());
 
-    const query = `INSERT INTO users VALUES ('${id}', '${req.body['givenName']}', '${req.body['middleName']}', 
-        '${req.body['lastName']}', '${req.body['birthday']}', '${ageOfUser}', 'male', '${req.body['userName']}', '${req.body['password']}', '${req.body['mobileNumber']}', 'none')`;
+    const query = `INSERT INTO users VALUES ('${id}', '${req.body['givenName']}', '${req.body['middleName']}', '${req.body['lastName']}', '${req.body['birthday']}', '${ageOfUser}', 'male', '${req.body['userName']}', '${req.body['password']}', '${req.body['mobileNumber']}', 'none')`;
 
     connection.query(query, function (error, results, fields) {
 
