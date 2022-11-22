@@ -28,11 +28,12 @@ function CheckoutPage() {
         const orderDetails = JSON.stringify(checkout.otherDetails)
 
         // Sets the date as a 'CURRENT DATE'
-        const currentDate = new Date(Date.now())
+        const currentDate = new Date()
 
         /** To follow the syntax at SQL, we need to extract
          * the Year-Month-Date of the currentDate we specified. */
-        const orderDate = `${currentDate.getFullYear()}-${currentDate.getMonth()}-0${currentDate.getDate()}`;
+        const orderDate = `${currentDate.getFullYear()}-${currentDate.getMonth() + 1}-${currentDate.getDate()}`;
+        // const orderDate = '2022-01-01';
 
         
         fetch('http://localhost:3001/add-order', {

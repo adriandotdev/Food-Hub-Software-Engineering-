@@ -1,5 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import {BrowserRouter as Router, Route, Routes} from 'react-router-dom'
+import "@progress/kendo-theme-material/dist/all.css";
+import "hammerjs";
 
 // components
 import Navbar from './components/Navbar'
@@ -20,6 +22,7 @@ import CheckoutPage from './Pages/CheckoutPage'
 import YourOrders from './Pages/YourOrders'
 import AdminOrders from './Pages/AdminOrders'
 import AboutPage from './Pages/AboutPage'
+import Summary from './Pages/Summary'
 // Contexts
 import {AdminMenuProvider} from './contexts/AdminMenuContext'
 import {AdminOrderProvider} from './contexts/AdminOrderContext'
@@ -63,6 +66,7 @@ function App() {
                           <Route path="/admin/users" element={<CustomersPage />} />
                           <Route path="/admin/menu" element={<AdminMenuProvider><MenuPage /></AdminMenuProvider>} />
                           <Route path="/admin/orders" element={<AdminMenuProvider><AdminOrderProvider><AdminOrders /></AdminOrderProvider></AdminMenuProvider>} />
+                          <Route path="/admin/summary" element={<Summary/>}/>
                         </Route>
             }
           </Route>

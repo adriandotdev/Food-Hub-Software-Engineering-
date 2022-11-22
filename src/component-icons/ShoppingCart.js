@@ -1,4 +1,5 @@
-import React, {useState, useEffect, useMemo, useCallback, useContext} from 'react'
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, {useState, useEffect, useContext} from 'react'
 import {Link} from 'react-router-dom'
 import {UserContext} from '../contexts/UserContext'
 
@@ -7,7 +8,6 @@ function ShoppingCart() {
     const {userIDNumber, noOfCartItems, setNoOfCartItems, addedToCart, isUser} = useContext(UserContext)
     const [clicked, setClicked] = useState(false)
     
-
     useEffect(() => {
         console.log('USE EFFECT FOR CART ITEMS')
         fetch('http://localhost:3001/get-cart-items', {
