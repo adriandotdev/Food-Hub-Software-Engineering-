@@ -61,7 +61,7 @@ const getCartItems = (req, res) => {
 
         if (error)
             console.log(error)
-
+        console.log(results);
         res.json(JSON.stringify(results))
     })
 }

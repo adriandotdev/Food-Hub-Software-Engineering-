@@ -101,10 +101,59 @@ const setOrderAsCancelled = (req, res) => {
     })
 }
 
+const getMonthlySales = (req, res) => {
+
+    let query = `SELECT * FROM orders`
+
+    connection.query(query, function (error, results, fields) {
+
+        if (error) {
+            console.log(error)
+        }
+        // console.log(results)
+        res.json(JSON.stringify(results))
+    })
+}
+
+const getNumberOfMenus = (req, res) => {
+
+    let query = `SELECT * FROM menu`
+
+    connection.query(query, function (error, results, fields) {
+
+        if (error) {
+            console.log(error)
+        }
+        // console.log(results)
+        res.json(JSON.stringify(results))
+    })
+}
+
+const getTodaysOrders = (req, res) => {
+
+    let date = new Date();
+
+    console.log(date.getFullYear() + ":" + date.getDate() + ":" + (date.getMonth() + 1))
+    let query = `SELECT * FROM Orders WHERE year(order_date) = ${date.getFullYear()} AND day(order_date) = ${date.getDate()} AND month(order_date) = ${date.getMonth() + 1} AND status != 'cancelled'`
+
+    connection.query(query, function (error, results, fields) {
+
+        if (error) {
+            console.log(error)
+        }
+        // console.log(results)
+        res.json(JSON.stringify(results))
+    })
+}
+
 module.exports = {
     addOrder,
     setOrderAsCancelled,
     getOrdersWithStatus,
     getOrders,
-    setOrderAs
+    setOrderAs,
+    getMonthlySales,
+    getNumberOfMenus,
+    getTodaysOrders,
+    getTodaysOrders
 }

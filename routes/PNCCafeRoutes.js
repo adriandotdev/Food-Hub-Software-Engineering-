@@ -3,7 +3,8 @@ const {verifyUser, getUser, addUser} = require('../controller/AuthenticationCont
 const {addMenu, editMenu, deleteMenu, getMenu, getMenuByID} = require('../controller/MenuController')
 const {getCartItem, addQuantity, addToBag, getCartItems, removeItem} = require('../controller/CartController')
 const {getUsers, getUserByID, updateUserWithID, deleteUserAccount} = require('../controller/UsersController')
-const {addOrder, getOrders, setOrderAsCancelled, getOrdersWithStatus, setOrderAs} = require('../controller/OrdersController')
+const {addOrder, getOrders, setOrderAsCancelled, getOrdersWithStatus, setOrderAs, getMonthlySales, getNumberOfMenus
+, getTodaysOrders} = require('../controller/OrdersController')
 const {verifyAdmin} = require('../controller/AdminAuthController')
 
 var mysql  = require('mysql');
@@ -69,6 +70,8 @@ route.post('/set-as-cancelled', setOrderAsCancelled)
 route.post('/get-order-with-status', getOrdersWithStatus)
 route.get('/get-orders', getOrders)
 route.post('/set-order-as', setOrderAs)
-
+route.post('/get-monthly-sales', getMonthlySales)
 route.post('/verify-admin', verifyAdmin)
+route.get('/get-total-menus', getNumberOfMenus)
+route.get('/get-todays-orders', getTodaysOrders)
 module.exports = route;
