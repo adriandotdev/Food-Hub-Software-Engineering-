@@ -1,4 +1,4 @@
-# PNC Cafe Ordering System
+# Food Hub Ordering System
 
 This is our System Analysis and Design and Software Engineering project.
 
@@ -44,9 +44,14 @@ The user can view all of his/her **pending**, **preparing**, **To Received**, **
 
  ![Your Orders](https://user-images.githubusercontent.com/63532775/210090904-901b06e0-f725-4614-82e1-d4b285d4f1c0.gif)
 
-### Editing Profile and Deleting the Account
+### Editing Profile
 
 The user can edit his/her username, add profile picture, mobile number, and password.
 
+![Profile Editing](https://user-images.githubusercontent.com/63532775/210093711-8e31b6b8-d5e7-4ae4-9328-119627d916d9.gif)
 
+### Deleting Profile
 
+The user can delete his/her profile by providing the given key of the system.
+
+![Deleting Profile](https://user-images.githubusercontent.com/63532775/210094893-ca63045c-635e-4c3e-9bbf-b546406bae1d.gif)
