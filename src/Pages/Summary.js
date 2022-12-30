@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, {useState, useEffect} from 'react'
 
 import {
@@ -94,13 +95,37 @@ function Summary() {
   return (
     <div className="w-screen table-height flex flex-col">
          
-        <h1 className="text-center text-3xl font-bold text-pnc">Monthly Sales</h1>
+               <div className="flex items-center justify-center mt-6 gap-4">
+            <div className="flex flex-col border w-max p-8 border-pnc rounded-md shadow drop-shadow-lg">
+                <h1 className="text-4xl font-bold text-pnc">Total # of Menus</h1>
+                <p className="text-red-900 text-8xl text-center">{noOfMenus}</p>
+            </div>
 
+            <div className="flex flex-col border w-max p-8 border-pnc rounded-md shadow drop-shadow-lg">
+                <h1 className="text-4xl font-bold text-pnc">Todays Orders</h1>
+                <p className="text-red-900 text-8xl text-center">{todaysOrders}</p>
+            </div>
+        </div>
+
+        <h1 className="text-center text-3xl font-bold text-pnc">Monthly Sales</h1>
+        <select onChange={(e) => {
+            setMonth(e.target.value)
+        }} className="w-max pt-1 pb-1 pl-2 pr-2 bg-pnc text-white ml-auto mr-auto mt-3">
+            <option value="2017">2017</option>
+            <option value="2018">2018</option>
+            <option value="2019">2019</option>
+            <option value="2020">2020</option>
+            <option value="2021">2021</option>
+            <option value="2022">2022</option>
+        </select>
         <Chart>
         <ChartTitle text="" />
         <ChartLegend visible={true} />
         <ChartCategoryAxis>
-            <ChartCategoryAxisItem >
+            <ChartCategoryAxisItem categories={[
+                "January", "February", "March", "April",
+                "May", "June", "July", "August",
+                "September", "October", "November", "December"]}>
             <ChartCategoryAxisTitle className="font-bold text-4xl" text="" />
             </ChartCategoryAxisItem>
         </ChartCategoryAxis>
@@ -120,17 +145,7 @@ function Summary() {
         </ChartSeries>
         </Chart>
         
-        <div className="flex items-center justify-center mt-6 gap-4">
-            <div className="flex flex-col border w-max p-8 border-pnc rounded-md shadow drop-shadow-lg">
-                <h1 className="text-4xl font-bold text-pnc">Total # of Menus</h1>
-                <p className="text-red-900 text-8xl text-center">{noOfMenus}</p>
-            </div>
-
-            <div className="flex flex-col border w-max p-8 border-pnc rounded-md shadow drop-shadow-lg">
-                <h1 className="text-4xl font-bold text-pnc">Todays Orders</h1>
-                <p className="text-red-900 text-8xl text-center">{todaysOrders}</p>
-            </div>
-        </div>
+  
         
     </div>
   );

@@ -16,7 +16,7 @@ function UserLoginPage() {
     const [errorMessage, setErrorMessage] = useState('');
     const [receivedData, setReceivedData] = useState([]);
     const [IsOkay, setIsOkay] = useState(false);
-
+    
      function authenticate() {
 
         fetch('http://localhost:3001/get-user', {
@@ -29,14 +29,12 @@ function UserLoginPage() {
         .then(res => res.json())
         .then(data => {
 
-            console.log(JSON.parse(data))
             // if data is not empty
             if (JSON.parse(data)) {
                 setReceivedData(JSON.parse(data));
                 
                 setIsOkay(true);
              } // triggers re-render          
-            
         })
     }
 
@@ -44,8 +42,6 @@ function UserLoginPage() {
      * NOTE: ONLY RUNS WHEN THE 'receivedData' value changes.
      */
     useEffect(() => {
-
-        console.log("useEffect run in UserLoginPage");
         
         document.title = 'Food Hub | Login'
         // Check if the input field of ID Number and Password are not empty.
@@ -54,14 +50,14 @@ function UserLoginPage() {
             /** Check if the username and Password entered by user is equal to the received data's id number and password. */
             if (receivedData.length > 0 && (password === receivedData[0]['password'] && userName === receivedData[0]['username'])){
 
-                setUser(true)
-                setErrorMessage('')
-                setUserIDNumber(receivedData[0]['id_number'])
+                setUser(true);
+                setErrorMessage('');
+                setUserIDNumber(receivedData[0]['id_number']);
                 window.sessionStorage.setItem('isUser', 'true'); // set the session storage to determine if the user hasn't logged out yet.
-                window.sessionStorage.setItem('idNumber', `${receivedData[0]['id_number']}`) // set the session storage to determine the id number of the user.
-                navigate("/homepage")
+                window.sessionStorage.setItem('idNumber', `${receivedData[0]['id_number']}`); // set the session storage to determine the id number of the user.
+                navigate("/homepage");
             } else {
-                setErrorMessage('Incorrect password')
+                setErrorMessage('Incorrect password');
             }
         }
         
@@ -99,7 +95,7 @@ function UserLoginPage() {
                         <InputContainer name="password" type="password" labelContent="Password" value={password} onChange={(e) => {
                             setPassword(e.target.value)
                             setErrorMessage('')
-                        }}/>
+                        }} errorMessageValue="Password is incorrect."/>
 
                         {/* Login Button */}
                         <section>
@@ -109,7 +105,7 @@ function UserLoginPage() {
                                 if (!userName || !password)
                                     setErrorMessage('Please provide the required fields.')
                             }} 
-                            className="foodHubMainBtn" 
+                            className="foodHubMainBtn mt-4" 
                             text="Login"/>
                         </section>
 

@@ -25,8 +25,6 @@ function Navbar({navClass}) {
                             </section>
                         </nav>
                      </div>
-                    
-
                     {/* Other Pages to be rendered (E.g. UserLoginPage, UserSignupPage) */}
                     <Outlet />
                 </div>

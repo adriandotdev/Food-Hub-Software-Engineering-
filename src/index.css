@@ -169,6 +169,10 @@
   max-width: 25ch;
 }
 
+.onBlur {
+  @apply border-2 border-red-500;
+}
+
 .user-details {
   display: grid;
   grid-template-columns: repeat(2, 1fr);

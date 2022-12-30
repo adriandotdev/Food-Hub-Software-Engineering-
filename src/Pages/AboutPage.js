@@ -24,7 +24,7 @@ function AboutPage() {
 
                     <div className="flex flex-col lg:flex-wrap lg:flex-row gap-3 lg:gap-12 justify-evenly">
                         
-                        <AboutLeader name="Diana May S. Ardeza" imagePath="../../assets/Leader2Ardeza.jpg" description="She is Diana from Australia. She took Civil Engineering in her first study and took an Information Assurance degree on Yale at Perth, Australia."/>
+                        <AboutLeader name="Austeen Kyle De Castro" imagePath="../../assets/Austeen.jpg" description="He is Austeen Kyle De Castro from the Philippines. Graduated in Bachelor of Science in Computer Science."/>
 
                         <AboutLeader name="Adrian Nads L. Marcelo" imagePath="../../assets/Leader3Marcelo.jpg" description="He is Adrian Nads from Ontario, Canada. He studied Computer Science at Pamantasan ng Cabuyao, and a Web Developer for almost 7 years. He also took a bootcamp at Caprisa College for SEO."/>
 

@@ -20,10 +20,10 @@ function DeleteAccountModal() {
         })
         .then(res => res.json())
         .then( data => {
-            setUser(false)
             window.sessionStorage.setItem('isUser', 'false');
             window.sessionStorage.setItem('idNumber', '');
             window.location.replace('http://localhost:3000')
+            setUser(false)
         })
     }
     
@@ -33,7 +33,7 @@ function DeleteAccountModal() {
             <div className="modal-box ">
                 
                 <section className="flex flex-col gap-2">
-                    <p className="text-red-400 font-bold">This cannot be undone. This will permanently remove your PNC Cafe Account.</p>
+                    <p className="text-red-400 font-bold">This cannot be undone. This will permanently remove your Food Hub Account.</p>
 
                     <p className="text-red-500 font-medium">Please type <span className="text-pnc">{userIDNumber}</span> to confirm</p>
                 </section>

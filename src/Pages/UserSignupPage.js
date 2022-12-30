@@ -3,6 +3,7 @@ import {Link, useNavigate} from 'react-router-dom'
 import InputContainer from '../components/InputContainer'
 import Button from '../components/Button'
 import ErrorAlert from '../components/ErrorAlert'
+import InputMainContainer from '../components/InputMainContainer'
 
 // User sign up page
 function UserSignupPage() {
@@ -15,12 +16,27 @@ function UserSignupPage() {
     const [middleName, setMiddleName] = useState('');
     const [lastName, setLastName] = useState('');
     const [userName, setUserName] = useState('');
-    const [mobileNumber, setMobileNumber] = useState('')
-    const [birthday, setBirthday] = useState('')
+    const [mobileNumber, setMobileNumber] = useState('');
+    const [birthday, setBirthday] = useState('');
     const [password, setPassword] = useState('');
     const [confirmationPassword, setConfirmationPassword] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
     
+    // ERROR MESSAGES STATES
+    const [givenNameError, setGivenNameError] = useState({toShow: false, errorMessage: 'This field is required'});
+    const [middleNameError, setMiddleNameError] = useState({toShow: false, errorMessage: 'This field is required'});
+    const [lastNameError, setLastNameError] = useState({toShow: false, errorMessage: 'This field is required'});
+    const [birthdayError, setBirthdayError] = useState({toShow: false, errorMessage: 'This field is required'});
+    const [usernameError, setUsernameError] = useState({toShow: false, errorMessage: 'This field is required'});
+    const [mobileNumberError, setMobileNumberError] = useState({toShow: false, errorMessage: 'This field is required'});
+    const [passwordError, setPasswordError] = useState({toShow: false, errorMessage: 'This field is required'});
+    const [confirmPasswordError, setConfirmPasswordError] = useState({toShow: false, errorMessage: 'This field is required'});
+
+    const [isAllRequirementsMet, setIsAllRequirementsMet] = useState(false);
+
+    const usernameValidPattern = /\w{8,}/;
+    const mobileNumberValidPattern = /09\d{9,9}/;
+
     useEffect(() => {
 
         document.title = "Food Hub | Sign Up"
@@ -90,10 +106,23 @@ function UserSignupPage() {
         
         if (JSON.parse(data).length > 0) {
             console.log(data);
+            console.log('IT IS EXISTISNG')
             alert("Username is existing");
         } else {
             addUser();
         }
+    }
+
+    function HideErrorMessages(setInputError, error, e) {
+
+        setErrorMessage('');
+        setInputError({errorMessage: 'This field is required.', toShow: false});
+        e.target.classList.remove('onBlur');
+    }
+
+    function ShowErrorMessage(setInputError, error, e) {
+        e.target.classList.add('onBlur');
+        setInputError({...error, toShow: true});
     }
 
     return (
@@ -108,69 +137,93 @@ function UserSignupPage() {
                     <form autoComplete="off"  className="form-control" onSubmit={(e) => {
 
                             e.preventDefault()
-                            verify_user()
+
+                            if (isAllRequirementsMet)
+                                verify_user();
                         }}>
                         
-                         <InputContainer name="givenName" type="text" labelContent="Given Name" value={givenName} onChange={
-                            (e) => { 
-                                setGivenName(e.target.value)
-                                setErrorMessage('') 
-                            }
-                        }/>
+                        {/* Given Name */}
+                        <InputMainContainer name="givenName" type="text" labelContent="Given Name" value={givenName} setValue={setGivenName} error={givenNameError} setError={setGivenNameError}
+                            HideErrorMessages={HideErrorMessages} ShowErrorMessage={ShowErrorMessage}
+                        />
+                        
+                        {/* Middle Name */}
+                        <InputMainContainer name="middleName" type="text" labelContent="Middle Name" value={middleName} setValue={setMiddleName} error={middleNameError} setError={setMiddleNameError}
+                            HideErrorMessages={HideErrorMessages} ShowErrorMessage={ShowErrorMessage}
+                        />
 
-                        <InputContainer name="middleName" type="text" labelContent="Middle Name" value={middleName} onChange={
-                            (e) => { 
-                                setMiddleName(e.target.value)
-                                setErrorMessage('') 
-                            }
-                        }/>
+                        {/* Last Name */}
+                        <InputMainContainer name="lastName" type="text" labelContent="Last Name" value={lastName} setValue={setLastName} error={lastNameError} setError={setLastNameError}
+                            HideErrorMessages={HideErrorMessages} ShowErrorMessage={ShowErrorMessage}
+                        />
 
-                        <InputContainer name="lastName" type="text" labelContent="Last Name" value={lastName} onChange={
-                            (e) => { 
-                                setLastName(e.target.value)
-                                setErrorMessage('') 
-                            }
-                        }/>
+                        {/* Date of Birth */}
+                        <InputMainContainer name="birthday" type="date" labelContent="Date of Birth" value={birthday} setValue={setBirthday} error={birthdayError} setError={setBirthdayError}
+                            HideErrorMessages={HideErrorMessages} ShowErrorMessage={ShowErrorMessage}
+                        />
 
-                        <InputContainer name="birthday" type="date" labelContent="birthday" value={birthday} onChange={
-                            (e) => { 
-                                setBirthday(e.target.value)
-                                setErrorMessage('') 
-                            }
-                        }/>
+                        {/* Mobile Number */}
+                        <InputMainContainer name="mobile-number" type="tel" labelContent="Mobile Number" value={mobileNumber} setValue={setMobileNumber} error={mobileNumberError} setError={setMobileNumberError}
+                            HideErrorMessages={HideErrorMessages} ShowErrorMessage={ShowErrorMessage}
+                            onChange={(e) => {
+                                
+                                setMobileNumber(e.target.value);
+                                HideErrorMessages(setMobileNumberError, mobileNumberError, e);
+                            }}
+                        />
 
-                        <InputContainer name="username" type="text" labelContent="Username" value={userName} onChange={
-                            (e) => { 
-                                setUserName(e.target.value)
-                                setErrorMessage('') 
-                            }
-                        }/>
+                        {/* Username */}
+                        <InputMainContainer name="username" type="text" labelContent="Username" value={userName} setValue={setUserName} error={usernameError} setError={setUsernameError}
+                            HideErrorMessages={HideErrorMessages} ShowErrorMessage={ShowErrorMessage}
+                            onChange={(e) => {
 
-                        <InputContainer name="mobile-number" type="number" labelContent="Mobile Number" value={mobileNumber} onChange={
-                            (e) => { 
-                                setMobileNumber(e.target.value)
-                                setErrorMessage('') 
-                            }
-                        }/>
+                                setUserName(e.target.value);
+                                HideErrorMessages(setUsernameError, usernameError, e);
+                            }}
+                        />
 
-                        <InputContainer name="password" type="password" labelContent="Password" value={password} 
-                        onChange={
-                            (e) => { 
-                                setPassword(e.target.value)
-                                setErrorMessage('') 
-                            }
-                        }/>
+                        {/* Password */}
+                        <InputMainContainer name="password" type="password" labelContent="Password" value={password} setValue={setPassword} error={passwordError} setError={setPasswordError}
+                            HideErrorMessages={HideErrorMessages} ShowErrorMessage={ShowErrorMessage}
+                        />
 
-                        <InputContainer name="confirm-password" type="password" labelContent="Confirm Password" value={confirmationPassword} 
-                        onChange={(e) => {
-
-                            setConfirmationPassword(e.target.value)
-                            setErrorMessage('') 
-                           }
-                        }/>
-
+                        {/* Confirmation Password */}
+                         <InputMainContainer name="confirm-password" type="password" labelContent="Confirm Password" value={confirmationPassword} setValue={setConfirmationPassword} error={confirmPasswordError} setError={setConfirmPasswordError}
+                            HideErrorMessages={HideErrorMessages} ShowErrorMessage={ShowErrorMessage}
+                        />
+ 
                         <section>
-                            <Button className="foodHubMainBtn" text="Sign Up"/>
+                            <Button className="foodHubMainBtn mt-4" text="Sign Up" onClick={(e) => {
+                                
+                                if (userName && !String(userName).match(usernameValidPattern)) {
+                                    
+                                    setUsernameError({toShow: true, errorMessage: 'Username is invalid. It must only consist alphanumeric characters such as letters, numbers, and underscore (_). Username must be atleast 8 characters long.'});
+                                    document.getElementById('username').classList.add('onBlur');
+                                }
+
+                                if (password && confirmationPassword && password !== confirmationPassword) {
+
+                                    setConfirmPasswordError({toShow: true, errorMessage: 'Password does not match. Make sure that confirmation password is matched.'});
+                                    document.getElementById('confirm-password').classList.add('onBlur');
+                                }
+
+                                if (mobileNumber && (!String(mobileNumber).match(mobileNumberValidPattern) || mobileNumber.length > 11)) {
+                                    setMobileNumberError({toShow: true, errorMessage: 'You must enter a valid mobile number. It must be start in 09 and have a length of 11. Example format: 09123451234'});
+                                    document.getElementById('mobile-number').classList.add('onBlur');
+                                }
+
+                                if (!givenName || !middleName || !lastName || !birthday)
+                                    return; 
+                                
+                                if (String(userName).match(usernameValidPattern) && mobileNumber.length === 11 && password === confirmationPassword
+                                    && String(mobileNumber).match(mobileNumberValidPattern)) {
+                                        console.log("IT IS MET")
+                                    setIsAllRequirementsMet(true);
+                                    // e.target.disabled = true;
+                                }
+
+                                
+                            }}/>
                         </section>
 
                         <section className="flex justify-center mt-2">
