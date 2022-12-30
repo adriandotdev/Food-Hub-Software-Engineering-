@@ -5,7 +5,7 @@ This is our System Analysis and Design and Software Engineering project.
 ## About The System
 This is an ordering system for small food businesses. 
 
-## Features of the System
+## Features of the System (Client Side)
 
 ### Create an Account
 
@@ -31,3 +31,22 @@ The user can choose the food that he/she wish to order and can increase/decrease
 The user can also modify his/her cart by deleting existing item or modify food's quantity. 
 
 ![Cart](https://user-images.githubusercontent.com/63532775/210090044-1b17c673-2bcc-4779-b831-4b801b27431c.gif)
+
+### Checkout
+
+The user can also checkout his/her order by providing mode of payment such as **Pickup** or **Cash-on-Delivery**, address if the mode of payment is **C.O.D** and time of delivery or pickup.
+
+![Placing and Checkout (2)](https://user-images.githubusercontent.com/63532775/210090646-728b60c5-1959-443b-b5db-bc2a75958639.gif)
+
+### Your Orders 
+
+The user can view all of his/her **pending**, **preparing**, **To Received**, **Received**, and **Cancelled** orders. The user can cancel the order when it is still on **Pending** stage. In the example below, the account does not have more orders.
+
+ ![Your Orders](https://user-images.githubusercontent.com/63532775/210090904-901b06e0-f725-4614-82e1-d4b285d4f1c0.gif)
+
+### Editing Profile and Deleting the Account
+
+The user can edit his/her username, add profile picture, mobile number, and password.
+
+
+
