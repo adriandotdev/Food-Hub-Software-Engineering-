@@ -55,3 +55,34 @@ The user can edit his/her username, add profile picture, mobile number, and pass
 The user can delete his/her profile by providing the given key of the system.
 
 ![Deleting Profile](https://user-images.githubusercontent.com/63532775/210094893-ca63045c-635e-4c3e-9bbf-b546406bae1d.gif)
+
+## Features of the System (Admin Side)
+
+### Log In
+
+The login for the admin is seperated in our system. As you can see, there are **four** tabs that the admin can access.
+
+![Admin Login](https://user-images.githubusercontent.com/63532775/210124800-c5fcaf84-cd99-404f-bf0f-ea5635a061cd.gif)
+
+### View Users Info
+
+![Admin Users](https://user-images.githubusercontent.com/63532775/210124817-47b5eb07-3b54-4fd0-b18d-5ef18679d59c.png)
+
+### View Menu
+
+The admin can also modify existing menu by adding, editing the name, price and availability, and by deleting.
+
+![Admin Menu](https://user-images.githubusercontent.com/63532775/210124953-d7f90026-3605-47e9-93ab-42963fdac1c0.gif)
+
+### View Orders
+
+On the admin side, it can also edit the status of the order. The admin can set it as **preparing** and **to received**. The admin can also view all the orders in different statuses.
+
+![Admin Orders](https://user-images.githubusercontent.com/63532775/210125010-141e78be-6dbb-4b8a-90f6-dcf773ec91d9.gif)
+
+### View Summary
+
+The admin can also know total number of menus and total number of orders for today. It can also provide total sales for each month for every year.
+
+![Admin Summary](https://user-images.githubusercontent.com/63532775/210125083-410aa765-a1cb-4c04-a396-c5c61925da1b.gif)
+
