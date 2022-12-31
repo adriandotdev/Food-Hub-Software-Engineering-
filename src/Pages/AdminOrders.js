@@ -60,7 +60,7 @@ function AdminOrders() {
         <div className="row-start-2 row-end-5 grid grid-cols-12 w-screen gap-3 px-10 relative">
 
             {/* Status Modal */}
-            <StatusModal idNumber={statusModalData !== null && statusModalData.id_number} referenceFor={statusModalData !== null && `${statusModalData.order_id}/status`}
+            <StatusModal idNumber={statusModalData !== null && statusModalData.id_number} referenceFor={statusModalData !== null && `${statusModalData.order_id}/status`} dropdownValue={dropdownValue}
                                        isUpdateDone={isUpdateDone}     setUpdateDone={setUpdateDone}/>
             {/* Invoice Modal */}
             <UserProvider>

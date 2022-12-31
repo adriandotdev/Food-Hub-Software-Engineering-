@@ -133,9 +133,9 @@ function MenuInfoPage() {
         <> 
         { isUser && <div className="flex justify-center items-center py-8 px-2">
 
-            <div className="card max-w-sm  w-full border border-pnc">
-                <figure>
-                    <img className="sm:max-w-md w-full" src={`../../assets/${currentMenu.length > 0 && currentMenu[0]['image_path']}`} alt="" />
+            <div className="card xl:card-side xl:max-w-4xl max-w-sm w-full border border-pnc">
+                <figure className="">
+                    <img className="block xl:max-h-full xl:h-96" src={`../../assets/${currentMenu.length > 0 && currentMenu[0]['image_path']}`} alt="" />
                 </figure>
                 <div className="card-body gap-4">
                     <h1 className="titles">{currentMenu.length > 0 && currentMenu[0]['menu']}</h1>
@@ -155,17 +155,17 @@ function MenuInfoPage() {
                         </div>
                     </section>
                     
-                    <section className="card-actions">
+                    <section className="flex flex-col gap-3 md:flex-row md:justify-start">
                         <label onClick={() => {
                             
                             setModalOpen(true)
                             isAlreadyOnBag()
 
                             setTimeout(() => setModalOpen(false), 1500)
-                        }} className="button btn-sm bg-transparent modal-button w-full" htmlFor="add-item-modal">
+                        }} className="button btn-sm bg-transparent modal-button" htmlFor="add-item-modal">
                             Add to Bag
                         </label>
-                        <Link className="btn btn-outline w-full" to="/homepage">Go to Menu</Link>
+                        <Link className="btn btn-outline" to="/homepage">Go to Menu</Link>
                         { modalOpen && <AddItemModal /> }
                     </section>
                     

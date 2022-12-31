@@ -78,6 +78,7 @@ function StatusModal({idNumber, referenceFor, dropdownValue, setUpdateDone}) {
                             setStatus() // call the function
                             setOrders([])
                             setUpdateDone(false)
+                            getOrdersWithStatus(dropdownValue)
                         }, 1500)
                     }} htmlFor={referenceFor}>Confirm</label>
                     <label onClick={() => {

@@ -95,7 +95,7 @@ function Summary() {
   return (
     <div className="w-screen table-height flex flex-col">
          
-               <div className="flex items-center justify-center mt-6 gap-4">
+        <div className="flex items-center justify-center mt-6 mb-4 gap-4">
             <div className="flex flex-col border w-max p-8 border-pnc rounded-md shadow drop-shadow-lg">
                 <h1 className="text-4xl font-bold text-pnc">Total # of Menus</h1>
                 <p className="text-red-900 text-8xl text-center">{noOfMenus}</p>
