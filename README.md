@@ -86,9 +86,10 @@ The admin can also know total number of menus and total number of orders for tod
 
 ![Admin Summary](https://user-images.githubusercontent.com/63532775/210125083-410aa765-a1cb-4c04-a396-c5c61925da1b.gif)
 
-## Databse Schemas
+## Database Schemas
 
 ### Users Table
+
 ```
 CREATE TABLE Users (
   id_number varchar(500) not null,
@@ -107,6 +108,7 @@ CREATE TABLE Users (
 ```
 
 ### Menu Table
+
 ```
 CREATE TABLE Menu (
    menu_id varchar(100),
