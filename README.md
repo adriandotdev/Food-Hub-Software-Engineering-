@@ -86,3 +86,83 @@ The admin can also know total number of menus and total number of orders for tod
 
 ![Admin Summary](https://user-images.githubusercontent.com/63532775/210125083-410aa765-a1cb-4c04-a396-c5c61925da1b.gif)
 
+## Databse Schemas
+
+### Users Table
+```
+CREATE TABLE Users (
+  id_number varchar(500) not null,
+  given_name varchar(50) not null,
+  middle_name varchar(50) not null,
+  last_name varchar(50) not null,
+  birthday DATE not null,
+  age int not null,
+  sex varchar(12),
+  username varchar(8) not null,
+  password varchar(150) not null,
+  mobile_number varchar(12),
+  profile_image_path varchar(50),
+  primary key(id_number)
+);
+```
+
+### Menu Table
+```
+CREATE TABLE Menu (
+   menu_id varchar(100),
+   menu varchar(50) not null,
+   menu_price decimal(30, 10),
+   image_path varchar(1000),
+   status varchar(30),
+   primary key (menu_id)
+);
+```
+
+### Transactions
+```
+CREATE TABLE TRANSACTIONS (
+   id_number varchar(500),
+   menu_id varchar(100),
+   menu varchar(50),
+   order_time time(0),
+   location varchar(1000),
+   payment_method boolean,
+   total_price decimal(30, 10),
+   status varchar(30),
+   foreign key (id_number) references users(id_number) ON DELETE CASCADE ON UPDATE CASCADE,
+   foreign key (menu_id) references menu(menu_id) ON DELETE CASCADE ON UPDATE CASCADE
+);
+```
+
+### Orders
+```
+CREATE TABLE Orders (
+   id_number VARCHAR(500),
+   order_id VARCHAR(200),
+   order_date DATE,
+   items JSON,
+   order_details JSON,
+   status VARCHAR(30),
+   PRIMARY KEY (order_id),
+   FOREIGN KEY (id_number) REFERENCES users(id_number)
+);
+```
+
+### Cart
+```
+CREATE TABLE Cart (
+   id_number varchar(500),
+   menu_id varchar(100),
+   quantity int,
+   foreign key (id_number) references users(id_number) ON DELETE CASCADE ON UPDATE CASCADE,
+   foreign key (menu_id) references menu(menu_id) ON DELETE CASCADE ON UPDATE CASCADE
+);
+```
+
+### Admin
+```
+CREATE TABLE Admin (
+   username VARCHAR(100),
+   password VARCHAR(100)
+);
+```
