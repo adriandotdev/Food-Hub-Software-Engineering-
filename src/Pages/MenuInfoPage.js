@@ -1,13 +1,13 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, {useState, useEffect, useContext} from 'react'
-import {Link} from 'react-router-dom'
-import {UserContext} from '../contexts/UserContext'
+import React, { useState, useEffect, useContext } from 'react'
+import { Link } from 'react-router-dom'
+import { UserContext } from '../contexts/UserContext'
 import Button from '../components/Button'
 import AddItemModal from '../components/AddItemModal'
 
 function MenuInfoPage() {
 
-    const {userIDNumber, setUserIDNumber, menuID, setMenuID, quantity, setQuantity,setAddedToCart, isUser, setUser} = useContext(UserContext)
+    const { userIDNumber, setUserIDNumber, menuID, setMenuID, quantity, setQuantity, setAddedToCart, isUser, setUser } = useContext(UserContext)
     const [currentMenu, setCurrentMenu] = useState([])
     const [modalOpen, setModalOpen] = useState(false)
     /** A useEffect function that 
@@ -36,18 +36,18 @@ function MenuInfoPage() {
         if (menu_id)
             setMenuID(menu_id)
 
-        fetch('http://localhost:3001/get-menu-id', { 
+        fetch('http://localhost:3001/get-menu-id', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({menuID})
+            body: JSON.stringify({ menuID })
         })
-        .then(res => res.json())
-        .then(data => {
-            console.log(data) // For Testing
-            setCurrentMenu(JSON.parse(data))
-        })
+            .then(res => res.json())
+            .then(data => {
+                console.log("MENU: " + data) // For Testing
+                setCurrentMenu(JSON.parse(data))
+            }).catch(err => console.log("MENU INFO ERROR: " + err))
     }, [menuID])
 
     async function addToCart() {
@@ -58,13 +58,13 @@ function MenuInfoPage() {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({userIDNumber, menuID, quantity})
+            body: JSON.stringify({ userIDNumber, menuID, quantity })
         })
 
         let data = await res.json()
 
         setAddedToCart(true)
-        
+
         console.log(data) // For Testing
     }
 
@@ -76,7 +76,7 @@ function MenuInfoPage() {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({userIDNumber, menuID, newQty})
+            body: JSON.stringify({ userIDNumber, menuID, newQty })
         })
 
         let data = await res.json()
@@ -88,23 +88,23 @@ function MenuInfoPage() {
 
         fetch('http://localhost:3001/get-cart-item', {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json'},
-            body: JSON.stringify({userIDNumber, menuID})
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ userIDNumber, menuID })
         })
-        .then(res => res.json())
-        .then(data => {
+            .then(res => res.json())
+            .then(data => {
 
-            /** The return value is the current quantity of the specified
-             * menu, so we add it to the quantity from the UserContext. */
-            const currentQuantity = JSON.parse(data)[0]['quantity']; 
+                /** The return value is the current quantity of the specified
+                 * menu, so we add it to the quantity from the UserContext. */
+                const currentQuantity = JSON.parse(data)[0]['quantity'];
 
-            updateMenuQuantity(currentQuantity + quantity)
+                updateMenuQuantity(currentQuantity + quantity)
 
-            
-            console.log('updated qty') // for testing
-        })
+
+                console.log('updated qty') // for testing
+            })
     }
-    
+
     const isAlreadyOnBag = () => {
 
         fetch('http://localhost:3001/get-cart-item', {
@@ -112,68 +112,68 @@ function MenuInfoPage() {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({userIDNumber, menuID})
+            body: JSON.stringify({ userIDNumber, menuID })
         })
-        .then(res => res.json())
-        .then(data => {
+            .then(res => res.json())
+            .then(data => {
 
-            console.log("FROM MenuInfoPage: " + data);
-            /** The return value is an array, so 
-             * if it is empty, it means the current
-             * menu is not on the cart, then we add it. */
-            if (JSON.parse(data).length < 1)
-                addToCart()
-            else {
-                increaseQuantity()
-            }
-        })
+                console.log("FROM MenuInfoPage: " + data);
+                /** The return value is an array, so 
+                 * if it is empty, it means the current
+                 * menu is not on the cart, then we add it. */
+                if (JSON.parse(data).length < 1)
+                    addToCart()
+                else {
+                    increaseQuantity()
+                }
+            })
     }
 
     return (
-        <> 
-        { isUser && <div className="flex justify-center items-center py-8 px-2">
+        <>
+            {isUser && <div className="flex justify-center items-center py-8 px-2">
 
-            <div className="card xl:card-side xl:max-w-4xl max-w-sm w-full border border-pnc">
-                <figure className="">
-                    <img className="block xl:max-h-full xl:h-96" src={`../../assets/${currentMenu.length > 0 && currentMenu[0]['image_path']}`} alt="" />
-                </figure>
-                <div className="card-body gap-4">
-                    <h1 className="titles">{currentMenu.length > 0 && currentMenu[0]['menu']}</h1>
-                    
-                    {/* Price and Quantity Buttons */}
-                    <section className="flex flex-col gap-5">
+                <div className="card w-96 bg-base-100 border border-pnc">
+                    <figure className="">
+                        <img className="" src={`../../assets/${currentMenu.length > 0 && currentMenu[0]['image_path']}`} alt="" />
+                    </figure>
+                    <div className="card-body gap-4">
+                        <h1 className="titles">{currentMenu.length > 0 && currentMenu[0]['menu']}</h1>
 
-                        <small className="text-4xl font-extrabold">{currentMenu.length > 0 && new Intl.NumberFormat('en-IN', {style: 'currency', currency: 'PHP'}).format(currentMenu[0]['menu_price'])}</small>
+                        {/* Price and Quantity Buttons */}
+                        <section className="flex flex-col gap-5">
 
-                        <div className="flex items-center gap-3">
-                            <p className="font-normal">Qty: </p>
-                            <section className="btn-group">
-                                <Button onClick={() => setQuantity(prevQty => prevQty > 1 ? prevQty - 1 : prevQty)} className="qty-btn" text="-"/>
-                                <Button className="quantity" text={quantity} />
-                                <Button onClick={() => setQuantity(prevQty => prevQty + 1)} className="qty-btn" text="+"/>
-                            </section>
-                        </div>
-                    </section>
-                    
-                    <section className="flex flex-col gap-3 md:flex-row md:justify-start">
-                        <label onClick={() => {
-                            
-                            setModalOpen(true)
-                            isAlreadyOnBag()
+                            <small className="text-4xl font-extrabold">{currentMenu.length > 0 && new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'PHP' }).format(currentMenu[0]['menu_price'])}</small>
 
-                            setTimeout(() => setModalOpen(false), 1500)
-                        }} className="button btn-sm bg-transparent modal-button" htmlFor="add-item-modal">
-                            Add to Bag
-                        </label>
-                        <Link className="btn btn-outline" to="/homepage">Go to Menu</Link>
-                        { modalOpen && <AddItemModal /> }
-                    </section>
-                    
+                            <div className="flex items-center gap-3">
+                                <p className="font-normal">Qty: </p>
+                                <section className="btn-group">
+                                    <Button onClick={() => setQuantity(prevQty => prevQty > 1 ? prevQty - 1 : prevQty)} className="qty-btn" text="-" />
+                                    <Button className="quantity" text={quantity} />
+                                    <Button onClick={() => setQuantity(prevQty => prevQty + 1)} className="qty-btn" text="+" />
+                                </section>
+                            </div>
+                        </section>
+
+                        <section className="flex flex-col gap-3 md:flex-row md:justify-start">
+                            <label onClick={() => {
+
+                                setModalOpen(true)
+                                isAlreadyOnBag()
+
+                                setTimeout(() => setModalOpen(false), 1500)
+                            }} className="button btn-sm bg-transparent modal-button" htmlFor="add-item-modal">
+                                Add to Bag
+                            </label>
+                            <Link className="btn btn-outline" to="/homepage">Go to Menu</Link>
+                            {modalOpen && <AddItemModal />}
+                        </section>
+
+                    </div>
                 </div>
-            </div>
 
-            
-        </div> } </>
+
+            </div>} </>
     )
 }
 
